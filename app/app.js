@@ -54,14 +54,15 @@ App.fn.renderAgeLoop = function(){
 App.fn.renderAge = function(){
   var now       = new Date
   var duration  = now - this.dob;
-  var years     = duration / 31556900000;
-
-  var majorMinor = years.toFixed(9).toString().split('.');
+  var detailLevel = 4;
 
   requestAnimationFrame(function(){
     this.html(this.view('age')({
-      year:         majorMinor[0],
-      milliseconds: majorMinor[1]
+      years:   (duration / 31556900000).toFixed(detailLevel),
+      months:  (duration / 31556900000 * 12).toFixed(detailLevel),
+      weeks:  (duration / 31556900000 * 365/7).toFixed(detailLevel),
+      days:   (duration / 31556900000 * 365).toFixed(detailLevel),
+      hours:  (duration / 31556900000 * 365*24).toFixed(detailLevel)
     }));
   }.bind(this));
 };
